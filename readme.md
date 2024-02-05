@@ -2,13 +2,24 @@
 
 > from the core.
 
-A breakdown of NN
+A breakdown of NN from absolute scratch. requirements:
 
-Some of the really challenging setups aren't presented here, such as a GPT
-algorithm, or an LSTM or GNU or even **buzzword here**.
++ Numpy: because array interfaces are tedious to build by hand
 
+That's it. The rest is pure python.
 
-This is more:
+## Features
+
++ Pure readable python
++ No maths, no conceptually complicated learning required
++ Do three things easily:
+    + Initialise
+    + Train
+    + Predict
+
+Some of the really challenging setups aren't presented here, such as a GPT algorithm, or an LSTM or GNU or even **buzzword here**.
+
+This code is more for:
 
 + Multi-layer NN for _things_
 + Build a teenie tiny neural net to do tiny things
@@ -21,6 +32,30 @@ This is more:
 + functional switching for activations
 + Silly easy reading style
 + Some discussion for learning in the process.
++ Easily run a single training step (for stream-in training!)
+
+
+## Can I build useful things.
+
+No and Yes. The code produced is a [Multi Layer Perceptron](https://ml-cheatsheet.readthedocs.io/en/latest/architectures.html#mlp) (That's the classical idea of neurons on a mesh) and with that you can build functional things.
+
+However some of the more interesting and _insert AI word here_ will need more library support. At that point TensorFlow and other industry leading tools should be considered.
+
+That said, Neural Nets have served for very interesting things. Given good training (and a good shape) you can build real nets and deploy the weights within your own python work. For example, it's entirely possible to build things like:
+
++ Color detection
++ Number things
++ Word counting/prediction/spelling things.
+
+even the crazy things _are_ possible; it would just take some effort:
+
++ Mini neural driving cars
++ Those 'generic' training games for tiny agents
++ Shake detectors (phones etc), motion and movement detection
++ Classifiers
+
+Stuff like that... If you can _convert something to floats_, it can pretty-much be digested with a neural net.
+
 
 ## Getting started
 
@@ -76,6 +111,40 @@ And run it:
 
 ```py
 v1.predict(.2)
+```
+
+## Training
+
+Training is a case of feeding the net with examples of _in_ and _out_; what you expect to see when some information is entered into the neural net. In this example we feed it a single letter `w`, and expect a letter in return `h`. The goal is to ensure the net returns the correct letter back.
+
+Training alters the weights and biases over many iterations, such that the _maths_ within produces correct numbers.
+
+Our training data should match the shape of the input and output. In this example we have `1` input and `1` output. The NN expects floats:
+
+```py
+from np7 import *
+
+nn = NN(Shape(1,[1],1))
+nn.wb=nn.init_network()
+
+# Training data: (input, expected output)
+training_data = [(0.1, 0.2),
+                 (0.3, 0.6),]
+nn.train(training_data)
+```
+
+If we have `2` inputs and `2` outputs, the format of the training data should change to reflect this:
+
+```py
+from np7 import *
+
+nn = NN(Shape(2,[1],2))
+nn.wb=nn.init_network()
+
+# Training data: (input, expected output)
+training_data = [( array([0.1,0.1]), array([0.2, 0.2])),
+                 ( array([0.3,0.3]), array([0.6, 0.6])),]
+nn.train(training_data)
 ```
 
 ## What can it do?!

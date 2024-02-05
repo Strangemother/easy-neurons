@@ -230,12 +230,12 @@ class NN(object):
         for epoch in range(epochs):
             total_error = 0
             for input_val, expected_output in data:
-                # total_error += self.train_once(input_val,
-                #                                expected_output,
-                #                                learning_rate, weights, biases)
-                total_error += self.train_once_with_loss(input_val,
-                                                    ((expected_output,), False),
-                                                    learning_rate, weights, biases)
+                total_error += self.train_once(input_val,
+                                               expected_output,
+                                               learning_rate, weights, biases)
+                # total_error += self.train_once_with_loss(input_val,
+                #                                     ((expected_output,), False),
+                #                                     learning_rate, weights, biases)
             # print out the error every so often
             if epoch % 1000 == 0:
                 print(f"Iter Epoch {epoch}, Total Error: {total_error}")
