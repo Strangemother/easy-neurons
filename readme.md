@@ -37,9 +37,7 @@ This code is more for:
 
 ## Can I build useful things.
 
-No and Yes. The code produced is a [Multi Layer Perceptron](https://ml-cheatsheet.readthedocs.io/en/latest/architectures.html#mlp) (That's the classical idea of neurons on a mesh) and with that you can build functional things.
-
-However some of the more interesting and _insert AI word here_ will need more library support. At that point TensorFlow and other industry leading tools should be considered.
+The code produced is a [Multi Layer Perceptron](https://ml-cheatsheet.readthedocs.io/en/latest/architectures.html#mlp) (That's the classical idea of neurons on a mesh) and with that you can build functional things. However some of the more interesting and _insert AI word here_ will need more library support. At that point TensorFlow and other industry leading tools should be considered.
 
 That said, Neural Nets have served for very interesting things. Given good training (and a good shape) you can build real nets and deploy the weights within your own python work. For example, it's entirely possible to build things like:
 
