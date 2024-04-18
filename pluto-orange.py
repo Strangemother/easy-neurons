@@ -5,21 +5,37 @@ import numpy as np
 def sigmoid(x):
     return 1 / (1 + np.exp(-x))
 
+
 def sigmoid_derivative(x):
     return x * (1 - x)
 
+
 # Encoding letters to numbers
-letter_to_num = {'w': 0.1, 'h': 0.2, 'e': 0.3, 'n': 0.4, 'a': 0.5, 't': 0.6}
+letter_to_num = {
+                 ' ': 0.0,
+                 'a': 0.1,
+                 'e': 0.2,
+                 'p': 0.3,
+                 'g': 0.4,
+                 'l': 0.5,
+                 'n': 0.6,
+                 'o': 0.7,
+                 'u': 0.8,
+                 'r': 0.9,
+                 't': 1.0,
+                 }
+
+
 num_to_letter = {v: k for k, v in letter_to_num.items()}
 
-# Training data: (input, expected output)
-training_data = [(0.1, 0.2),
-                 (0.2, 0.3),
-                 (0.3, 0.4),  # when
-                 (0.2, 0.5),
-                 (0.5, 0.6)  # what (adjusted based on your example)
-                 ]
 
+training_data = [
+
+    (np.array([0.3, 0.5, 0.8, 1.0, 0.7, 0.0]),
+     np.array([0.7, 0.9, 0.1, 0.6, 0.4, 0.2])
+    ),
+
+]
 
 # Reinitialize weights and biases for two hidden neurons, correcting initial mistake
 np.random.seed(42)  # Resetting the seed for consistency
@@ -34,14 +50,8 @@ def new_cache(input_size=2, output_size=2, hidden_size=2):
         'bias_output': np.random.uniform(-1, 1, (output_size,)),
     }
 
-# Example updated to 2 inputs and 2 outputs
-training_data = [
-    # Imagine these numbers represent encoded pairs of letters
-    (np.array([0.1, 0.2]), np.array([0.3, 0.4])),  # Encoded equivalent of "ab" -> "cd"
-    # Add more training examples as needed
-]
 
-def train(data, cache, learning_rate=0.1, epochs=10000):
+def train(data, cache, learning_rate=0.1, epochs=10):
     for epoch in range(epochs):
         for input_val, expected_output in data:
             # Forward pass
@@ -62,6 +72,7 @@ def train(data, cache, learning_rate=0.1, epochs=10000):
             cache['weights_input_to_hidden'] += np.outer(input_val, d_hidden_layer) * learning_rate
             cache['bias_hidden'] += d_hidden_layer * learning_rate
 
+
 # Prediction function needs to accept and return pairs of numbers
 def predict(input_val, cache):
     hidden_layer_input = np.dot(input_val, cache['weights_input_to_hidden']) + cache['bias_hidden']
@@ -70,13 +81,39 @@ def predict(input_val, cache):
     final_output = sigmoid(final_output_input)
     return final_output
 
+
+def closest_match(value, value_in, value_out):
+    closest_num = min(value_in.values(), key=lambda x: abs(x - value))
+    predicted_letter = value_out[closest_num]
+    return predicted_letter
+
+
+def pred():
+    print('Prediction')
+    # Make a prediction
+    prediction = predict(input_example, cache)
+    print(f'Prediction for {input_example}: {prediction}')
+    r = ()
+    for p in prediction:
+        v = closest_match(p, letter_to_num, num_to_letter)
+        r += (v,)
+
+    print(r)
+    return r
+
+
+def tp():
+    # Train network
+    print(pred())
+    train(training_data, cache)
+    print(pred())
+
+
+# input_example = np.array([0.05, 0.13, 0.2, 0.3, 0.4, 0.0])
+input_example = np.array([0.3, 0.5, 0.8, 1.0, 0.7, 0.0])
+
 # Initialize network
-cache = new_cache()
+cache = new_cache(6, 6, 12)
 
-# Train network
-# train(training_data, cache)
-
-# Make a prediction
-input_example = np.array([0.1, 0.2])  # Example input
-prediction = predict(input_example, cache)
-print(f'Prediction for {input_example}: {prediction}')
+# Run about 5 times to train.
+tp()

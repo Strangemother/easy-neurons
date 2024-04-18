@@ -32,7 +32,7 @@ bias_output = np.random.uniform(-1, 1, (output_size,))
 
 # Training parameters
 learning_rate = 0.1
-epochs = 10000
+epochs = 30_000
 
 # Training loop
 for epoch in range(epochs):
@@ -85,5 +85,5 @@ def predict_next_letter(input_val):
 # Predict the next letter after 'h'
 predicted_letter_after_h = predict_next_letter(letter_to_num['h'])
 
-if
+
 print(f'{predicted_letter_after_h=}')

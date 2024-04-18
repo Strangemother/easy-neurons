@@ -1,0 +1,124 @@
+
+Today we'll look at building a AI Brain from scratch; which means from zero code to some code.
+
+We won't be writing a lot of code (near 100 lines.) or performing any complex math.
+
+Also we won't need to learn any complex math, code, or generally anything too mad.
+
+It will involve _some math_ we'll install from a special place, and _some_ code we'll write by hand.
+
+---
+
+Fundmentally this will demytify the complexities of AI Brains; And attempt to convey _what happens in the brain_. By the end, we'll very much understand the core concepts of pretty much 99% of all AI Brains.
+
+This includes how cars drive, vision systems 'see', how dictionary prediction functions, and a host of other applications.
+
+---
+
+Fundamentally we're not writing an 'AI brain' - instead we'll be building something else, a 'machine learning' brain; or neaural net.
+
+If you're new to ML, or perhaps working within the perphery; such as a training engineer or a product owner - and don't actually, really know what happens under the hood - this session will be your guide.
+
+---
+
+There will be (SO MUCH) more information about the field than this; But I gaurentee you'll be able to _look at_ a MLP image in the future and actually know what happens.
+
+---
+
+We intend to build a neural net; it's an aproxmiation of the human neuron - but as code.
+
+It was developed way back in like the 40s - before computers were invented.
+
+But that's not important.
+
+It performs complex sigmoid calculations across a chain of dot products, the output may be dervied through a softmax.
+
+It then predicts information, given historical training - a range of _correct_ outputs given certain inputs.
+
+To train the data, we perform multiple forward and backpasses through many epochs. The training data has been labelled by the supervisor and normalised into a digestable format, pushed through initially random weights and biases
+
+Once a model is trained we can transfer the weights to another model and use the data within our product.
+
+But that's gibberish.
+
+---
+
+Like seriously what does that even mean.
+
+We can simplify all this to its true meaning.
+
+---
+
+# What really happens
+
+We can build a neural net to be a _next character_ or _word_ predictor. We train our model to split our certain characters when we input chars. Just like a keyboard auto suggestion.
+
+For example, we want to input the letter "A", and the model should return "B". Input "B", the model should return "C". And so on.
+
+Computers can _compute_ numbers; not letters. Therefore we want to provide the inputs as something the machine can read; numbers.
+
+    A: 0.1
+    B: 0.2
+    ...
+
+Given we have _one_ input (a letter), and _one_ output (the next letter) as numbers.
+We can now build some math to do the thing we need:
+
+    # A -> B
+    A = .1
+    ## magic match
+    result = A += .1
+    B == result
+
+Great! And we can see this tiny math will return _the next char_. Let's make it more complicated.
+
+When inputting the letter `P`, we want the letter `O`.
+
+    A: .1
+    P: .2
+    L: .3
+    E: .4
+    S: .5
+    O: .6
+    I: .7
+    U: .8
+    # Oops  I forgot to add B earlier.
+    B: .9
+
+Now we see, if we use the same algorithm `A += .1` it doesn't work. For our `P` (`0.2`), we want `O` (`.6`):
+
+    # P  ->  O
+     .2  -> .6
+
+    # A  ->  B
+     .1  -> .9
+
+Now we're a bit stuck; somewhere there is math to perform this change. Luckily there is a magic wand.
+
+## Looking at NN
+
+through the door a 'neural net'. An approxmiation of a brain, without the wetness.
+
+We only need a _tiny tiny_ version of a wet brain to do this - So tiny, we likely only need like two neurons.
+
+---
+
+To build a "Net" of neurons we build a connection of mathy things, each computes a basic number and _passes it on_. During transit, the value is ever-so-slightly changed.
+
+The 'result' is an output.
+
+The first node in - we'll call those "inputs". We can have a single "input" for each _value_ we want to receive; in this case - the letter `P`.
+
+It has an `output`. This is also `1` node. Because the letter `O` is the requirement.
+
+---
+
+In the middle we have a brain. Our neurons.
+
+We can build a NN in any shape; with "hidden" neurons - or neurons we don't apply _inputs_.
+
+      hidden
+         x
+    in x   x out
+         x
+
