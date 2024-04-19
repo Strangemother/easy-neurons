@@ -3,6 +3,7 @@ import numpy as np
 
 # Sigmoid activation function and its derivative
 def sigmoid(x):
+    # https://en.wikipedia.org/wiki/Exponential_function
     return 1 / (1 + np.exp(-x))
 
 
@@ -23,7 +24,7 @@ letter_to_num = {
                  'u': 0.8,
                  'r': 0.9,
                  't': 1.0,
-                 }
+                }
 
 
 num_to_letter = {v: k for k, v in letter_to_num.items()}
@@ -32,9 +33,12 @@ num_to_letter = {v: k for k, v in letter_to_num.items()}
 training_data = [
 
     (np.array([0.3, 0.5, 0.8, 1.0, 0.7, 0.0]),
-     np.array([0.7, 0.9, 0.1, 0.6, 0.4, 0.2])
-    ),
+     np.array([0.7, 0.9, 0.1, 0.6, 0.4, 0.2])),
 
+    (
+     np.array([0.7, 0.9, 0.1, 0.6, 0.4, 0.2]),
+    np.array([0.3, 0.5, 0.8, 1.0, 0.7, 0.0]),
+     ),
 ]
 
 # Reinitialize weights and biases for two hidden neurons, correcting initial mistake
@@ -88,11 +92,11 @@ def closest_match(value, value_in, value_out):
     return predicted_letter
 
 
-def pred():
+def pred(ie):
     print('Prediction')
     # Make a prediction
-    prediction = predict(input_example, cache)
-    print(f'Prediction for {input_example}: {prediction}')
+    prediction = predict(ie, cache)
+    print(f'Prediction for {ie}: {prediction}')
     r = ()
     for p in prediction:
         v = closest_match(p, letter_to_num, num_to_letter)
@@ -102,15 +106,20 @@ def pred():
     return r
 
 
-def tp():
+def tp(e=10):
     # Train network
-    print(pred())
-    train(training_data, cache)
-    print(pred())
+    print(pred(input_example))
+    train(training_data, cache, epochs=e)
+    print(pred(input_example))
 
+def convert(value):
+    res = [letter_to_num[x] for x in value]
+    # res = [0.3, 0.5, 0.8, 1.0, 0.7, 0.0]
+    return np.array(res)
 
 # input_example = np.array([0.05, 0.13, 0.2, 0.3, 0.4, 0.0])
-input_example = np.array([0.3, 0.5, 0.8, 1.0, 0.7, 0.0])
+# input_example = np.array([0.3, 0.5, 0.8, 1.0, 0.7, 0.0])
+input_example = convert('orange')
 
 # Initialize network
 cache = new_cache(6, 6, 12)
